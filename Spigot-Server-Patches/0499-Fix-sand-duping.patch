@@ -7,30 +7,34 @@ If the falling block dies during teleportation (entity#move), then we need
 to detect that by placing a check after the move.
 
 diff --git a/src/main/java/net/minecraft/world/entity/item/EntityFallingBlock.java b/src/main/java/net/minecraft/world/entity/item/EntityFallingBlock.java
-index 411e3915c0aa00249aacb6658ed04309665d2fb4..62d8b53c024888aa43b8fddf8a475dfb8284a4cc 100644
+index 411e3915c0aa00249aacb6658ed04309665d2fb4..ec02e2bc2b53c2bebdd2836c599f01364ad9d449 100644
 --- a/src/main/java/net/minecraft/world/entity/item/EntityFallingBlock.java
 +++ b/src/main/java/net/minecraft/world/entity/item/EntityFallingBlock.java
-@@ -103,6 +103,11 @@ public class EntityFallingBlock extends Entity {
+@@ -103,6 +103,13 @@ public class EntityFallingBlock extends Entity {
  
      @Override
      public void tick() {
++        // HyCraftHD start - disable sand dupe fix 
 +        // Paper start - fix sand duping
-+        if (this.dead) {
-+            return;
-+        }
++        // if (this.dead) {
++        //     return;
++        // }
 +        // Paper end - fix sand duping
++        // HyCraftHD end - disable sand dupe fix
          if (this.block.isAir()) {
              this.die();
          } else {
-@@ -125,6 +130,12 @@ public class EntityFallingBlock extends Entity {
+@@ -125,6 +132,14 @@ public class EntityFallingBlock extends Entity {
  
              this.move(EnumMoveType.SELF, this.getMot());
  
++            // HyCraftHD start - disable sand dupe fix
 +            // Paper start - fix sand duping
-+            if (this.dead) {
-+                return;
-+            }
++            // if (this.dead) {
++            //     return;
++            // }
 +            // Paper end - fix sand duping
++            // HyCraftHD end - disable sand dupe fix
 +
              // Paper start - Configurable EntityFallingBlock height nerf
              if (this.world.paperConfig.fallingBlockHeightNerf != 0 && this.locY() > this.world.paperConfig.fallingBlockHeightNerf) {
